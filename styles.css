@@ -1,0 +1,75 @@
+html,
+body {
+
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+
+}
+
+
+.main {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    border: 1px solid white;
+    
+    
+}
+
+.rows,
+.visor {
+
+    display: flex;
+    height: 100%;
+    flex-grow: 1;
+    
+    
+}
+
+.visor input {
+    flex-grow: 1;
+    border: 1px solid;
+
+}
+
+.rows button {
+    
+    flex-grow: 1; 
+    margin: 1px;
+    width: 100%;
+    
+}
+
+.row1 {
+    display: flex;
+
+}
+
+#equals {
+
+    color: blue;
+   
+}
+
+#divisor,
+#plus,
+#minus,
+#multiply {
+
+    color: purple;
+  
+}
+
+#clear {
+
+    color: red;
+}
+

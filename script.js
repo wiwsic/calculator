@@ -30,34 +30,63 @@ function divide (a,b) {
     return a / b
 }
 
+// This function will transform the string in to array, separating follow the rules
+// explained below
+
+function StringToArray(string) {
+    return string.match(/[0-9]+|[-+*/X]|[^\w\s]/g);
+}
+
+
 function operate(operation) {
-
-    // take the operation string, and separate in to numbers and operators
-    // transform the information in an array, so for example the string 10+2-5
-    // will be [10,'+',2,'-',5]
-
-    let operationArray = [];
+    let operationArray = StringToArray(operation);
+    console.log(operationArray)
+    let total = 0;
 
     // remove inputvisor value
 
     inputVisor.value = '';
 
-    // Com o array montado, vamos iterar todo o array seguindo as seguintes regras
-    // 1. O index 0 transforma o valor em número com parseInt, avalia o index 1 para saber o operador
-    //    e efetua a operação com o valor do index 2
-    // 2. Esse valor é armazenado em uma variavel "total"
-    // 3. index 0,1,2 são removidos do array
-    // 4. Se o lenght do array for 0, retorna o total
-    // 5. Se o lenght do array for >=2, a variavel total vai usar o operador do index 0, e
-    //    "adicionar" o index 1 ao total. Por exemplo total = total * 10
-    // 6. index 0 e 1 são removidos do array
-    // 7. Se o lenght do array for 0, retorna o total
-    // 8. Caso contrário, as etapas 5 e 6 são repetidadas até o array ser 0
+    // Carrega as variaveis das operações
+    // Faz a primeira etapa, que é pegar os 3 primeiros indexes e fazer a operação
+    // No final da operação, remove esses 3 indexes
+    // Se o array for maior que 1, quer dizer que ainda precisa calcular
+    // Pega o próximo operador (que após o slice é o index 0)
+    // n1 vira o total, e o index 1 o n2, faz o calculo e remove os dois primeiros indexes
+    // O while loop vai continuar se operationArray.length > 0
+    // o bloco de código de "else if (operationArray.length > 1)" é executado enquanto
+    // o array for maior que zero
 
+    while (operationArray.length > 0) {
+        let n1, n2, operator;
 
+        if (operationArray.length > 2 && !isNaN(parseInt(operationArray[0]))) {
+            n1 = parseInt(operationArray[0]);
+            operator = operationArray[1];
+            n2 = parseInt(operationArray[2]);
 
+            if (operator === '+') total = sum(n1, n2);
+            else if (operator === '-') total = subtr(n1, n2);
+            else if (operator === 'X') total = mult(n1, n2);
+            else if (operator === '/') total = divide(n1, n2);
 
-    
+            operationArray = operationArray.slice(3);
+        } else if (operationArray.length > 1) {
+            operator = operationArray[0];
+            n1 = total;
+            n2 = parseInt(operationArray[1]);
 
+            if (operator === '+') total = sum(n1, n2);
+            else if (operator === '-') total = subtr(n1, n2);
+            else if (operator === 'X') total = mult(n1, n2);
+            else if (operator === '/') total = divide(n1, n2);
 
+            operationArray = operationArray.slice(2);
+        } else {
+            // Handle the case when there's only one element left in operationArray
+            break;
+        }
+    }
+
+    return total;
 }

@@ -3,7 +3,7 @@
 const allButtons = [...document.querySelectorAll('button')];
 let inputVisor = document.querySelector('#inputvisor')
 
-console.table(allButtons)
+//console.table(allButtons)
 
 // add event listener for each button
 

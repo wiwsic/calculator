@@ -9,7 +9,7 @@ let inputVisor = document.querySelector('#inputvisor')
 
 allButtons.forEach(button => {
 
-    if (button.id !== 'equals' && button.id !== 'clear') {
+    if (button.id !== 'equals' && button.id !== 'clear' && button.id !== 'delete') {
             button.addEventListener('click', (e) => {
         console.log(`Button ${button.textContent} was clicked!`);
         inputVisor.value += `${button.textContent}`;
@@ -18,10 +18,11 @@ allButtons.forEach(button => {
 });
 
 
-// add event listener for equals and clear
+// add event listener for equals, clear and delete
 
 const equalsBtn = document.querySelector('#equals')
 const clearBtn = document.querySelector('#clear')
+const deleteBtn = document.querySelector('#delete')
 
 equalsBtn.addEventListener('click', (e) => {
 
@@ -34,6 +35,16 @@ clearBtn.addEventListener('click', (e) => {
     inputVisor.value = '';
 
 })
+
+deleteBtn.addEventListener('click', (e) => {
+
+    inputVisor.value = inputVisor.value.substring(0, inputVisor.value.length - 1);
+
+})
+
+
+
+// operations
 
 
 function sum (a,b) {

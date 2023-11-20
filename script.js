@@ -67,7 +67,8 @@ function divide (a,b) {
 // explained below
 
 function StringToArray(string) {
-    return string.match(/[0-9]+|[-+*/X]|[^\w\s]/g);
+        // Modificada a expressão regular para considerar números decimais com múltiplos pontos
+        return string.match(/[0-9]+(?:\.[0-9]+(?:\.[0-9]+)*)?|[-+*/X]|[^\w\s]/g);
 }
 
 
@@ -79,6 +80,15 @@ function operate(operation) {
     // remove inputvisor value
 
     inputVisor.value = '';
+
+    // if there are multiple "." in a single number, stop the operation, return 0
+    // also insert a message "invalid value"
+
+    if(operationArray.some(element => element.split('.').length > 2)) {
+        console.log('match')
+        inputVisor.value = 'Invalid Value';
+        return total
+    };
 
     // Carrega as variaveis das operações
     // Faz a primeira etapa, que é pegar os 3 primeiros indexes e fazer a operação
@@ -94,9 +104,9 @@ function operate(operation) {
         let n1, n2, operator;
 
         if (operationArray.length > 2 && !isNaN(parseInt(operationArray[0]))) {
-            n1 = parseInt(operationArray[0]);
+            n1 = parseFloat(operationArray[0]);
             operator = operationArray[1];
-            n2 = parseInt(operationArray[2]);
+            n2 = parseFloat(operationArray[2]);
 
             if (operator === '+') total = sum(n1, n2);
             else if (operator === '-') total = subtr(n1, n2);
@@ -107,7 +117,7 @@ function operate(operation) {
         } else if (operationArray.length > 1) {
             operator = operationArray[0];
             n1 = total;
-            n2 = parseInt(operationArray[1]);
+            n2 = parseFloat(operationArray[1]);
 
             if (operator === '+') total = sum(n1, n2);
             else if (operator === '-') total = subtr(n1, n2);
